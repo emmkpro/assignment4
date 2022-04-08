@@ -24,6 +24,9 @@ const Employee = mongoose.model('Employee', Schema({
         departmentId: Number,
         departmentName: String
       }));
+function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+}
 
 module.exports.getAllEmployees = function(){
     return new Promise(function (resolve, reject) { 
@@ -44,28 +47,19 @@ module.exports.addEmployee = function (employeeData) {
             reject("No employee Data")
         }
         employeeData.isManager = (employeeData.isManager) ? true : false;
+        let employeeNum= getRandomInt(100000);
+        employeeData.employeeNum = employeeNum;
         Object.keys(employeeData).forEach(
             (key) => (employeeData[key] === "") ? employeeData[key] = null : employeeData[key]
         );
+
         console.log(employeeData);
         const doc = new Employee(employeeData);
         doc.save();
         resolve(employeeData);
     })};
 
-    module.exports.addDepartment = function (departmentData) {
-        return new Promise(function (resolve, reject) { 
-            if (departmentData.length == 0)
-            {
-                reject("No Department Data")
-            }
-            departmentData.departmentId = (departmentData.departmentId) ? departmentData.departmentId : null;
-            departmentData.departmentName = (departmentData.departmentName) ? departmentData.departmentName : null;
-            const doc = new Department(departmentData);
-            doc.save()
-            resolve(departmentData);
-        })};
-    
+   
 
 
 module.exports.getEmployeeByNum = function (num) {
@@ -197,3 +191,17 @@ module.exports.updateEmployee = function (employeeData) {
                 resolve(`The employee has been updated`);
             }
             })};
+            module.exports.addDepartment = function (departmentData) {
+                return new Promise(function (resolve, reject) { 
+                    if (departmentData.length == 0)
+                    {
+                        reject("No Department Data")
+                    }
+                    
+                    departmentData.departmentId = getRandomInt(1000000)
+                    departmentData.departmentName = (departmentData.departmentName) ? departmentData.departmentName : null;
+                    const doc = new Department(departmentData);
+                    doc.save()
+                    resolve(departmentData);
+                })};
+            
