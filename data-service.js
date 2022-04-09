@@ -1,7 +1,7 @@
 const { response } = require("express");
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-mongoose.connect("mongodb+srv://DaFuzzyOgre:Flavory15@capstone.qdnab.mongodb.net/Capstone?retryWrites=true&w=majority");
+mongoose.connect("mongodb+srv://emmaprobst:Quentin2015@emmacluster.1cim2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
 
 const Employee = mongoose.model('Employee', Schema({
     employeeNum: Number, 
