@@ -202,14 +202,21 @@ app.post("/department/update", (req, res) => {
     res.redirect("/departments");
   });  
 });
-app.get("/departments/delete/:departmentId ", (req,res) => {
-    data.deleteDepartmentById(req.body).then(()=>{
+app.get("/departments/delete/:departmentId", (req,res) => {
+    data.deleteDepartmentById(req.params.departmentId).then(()=>{
         res.redirect("/departments");
     }).catch((err) => {
         res.status(500).send("Unable to Remove Department / Department not found");
     });
 });
 
+app.get("/employees/delete/:empNum", (req,res) => {
+    data.deleteEmployeeByNum(req.params.empNum).then(()=>{
+        res.redirect("/employees");
+    }).catch((err) => {
+        res.status(500).send("Unable to Remove Employee / Employee not found");
+    });
+});
 app.use((req, res) => {
     res.status(404).send("Page Not Found");
   });
